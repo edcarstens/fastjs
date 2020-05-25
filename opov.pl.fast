@@ -1,0 +1,127 @@
+//.+fast < 'method1'  # unary operators
+neg
+pos
+abs
+invert
+complex
+int
+long
+float
+oct
+hex
+index
+len
+//.fast < 'method2'  # binary operators
+add
+sub
+mul
+floordiv
+mod
+divmod
+lshift
+rshift
+and
+xor
+or
+div
+truediv
+radd
+rsub
+rmul
+rdiv
+rtruediv
+rfloordiv
+rmod
+rdivmod
+rpow
+rlshift
+rrshift
+rand
+rxor
+ror
+iadd
+isub
+imul
+idiv
+itruediv
+ifloordiv
+imod
+ilshift
+irshift
+iand
+ixor
+ior
+lt
+le
+eq
+ne
+gt
+ge
+getitem
+delitem
+//.fast < 'methods' # combines method1 and method2 sections
+//.fast.unseal()
+//.fast > 'method1'
+//.fast > 'method2'
+//.fast.seal()
+//.# Special Cases
+pow
+ipow
+call
+//.-fast
+
+//.def initClassVars():{
+//. for name in fast.getLines('methods'):{
+@name@Method = '__@name@__'
+//. }
+//.}
+//.def method1(name):{
+def __@name@__(self):
+    return Opov(self._mcall1(self.@name@Method))
+//.}
+//.def method2(name):{
+def __@name@__(self, x):
+    return Opov(self._mcall2(self.@name@Method, x))
+//.}
+//.def defMethod1():{
+//. for name in fast.getLines('method1'):{
+//.method1(name)
+//. }
+//.}
+//.def defMethod2():{
+//. for name in fast.getLines('method2'):{
+//.method2(name)
+//. }
+//.}
+opov.py.fast: INFO - Writing opov.py ..
+//.opovClass = Section()
+//.+opovClass('opov.py')
+class Opov(object):
+    //.initClassVars()
+    def __init__(self, x=''):
+        self.x = x if x else 'x'  # expression string
+    def __str__(self):
+        return self.x
+    def _mcall1(self, m):
+        return self.x + '.' + m + '()'
+    def _mcall2(self, m, x):
+        return self.x + '.' + m + '(' + str(x) + ')'
+    //.defMethod1()
+    //.defMethod2()
+    //.# Special Cases
+    def __pow__(self, x, y=''):
+        if y:
+            ys = ', ' + str(y)
+        else:
+            ys = ''
+        return Opov(self.x + '.__pow__(' + str(x) + ys + ')')
+    def __ipow__(self, x, y=''):
+        if y:
+            ys = ', ' + str(y)
+        else:
+            ys = ''
+        return Opov(self.x + '.__ipow__(' + str(x) + ys + ')')
+    def __call__(self, *args):
+        z = ','.join(map(str, args))
+        return Opov(self.x + '.__call__(' + z + ')')
+//.-opovClass.write()

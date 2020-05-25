@@ -1,0 +1,9 @@
+//.#-*-Javascript-*-
+//.+fast
+--- Operator Overloading FAST Package ---
+This is a way to use operator overloading in Javascript. This package converts
+your Javascript code using operator overloading to pure Javascript which doesn't
+support operator overloading.
+
+//.from opov import Opov
+//.-fast
