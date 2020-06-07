@@ -20,6 +20,12 @@
 //.  self._args = SectionJsConstructorArgs(self.section + ' _args', self)
 //.  self.args = SectionJsConstructorArgs(self.section + ' args', self)
 //. }
+//. def __call__(self, initObjVars=True):{
+//.#  print('setting initObjVars=')
+//.#  print(initObjVars)
+//.  self._args(initObjVars)
+//.  return self
+//. }
 //. def process(self):{
 //.  buf = ''
 //.  noOpenParen = True
@@ -68,12 +74,17 @@
 //.  super(SectionJsConstructorArgs, self).__init__(x, parent)
 //.  self.argDefaults = {}
 //.  self.buf = ''
+//.  self.initObjVars = True
+//. }
+//. def __call__(self, initObjVars=True):{
+//.  self.initObjVars = initObjVars
+//.  return self
 //. }
 //. def process(self):{
 //.  for line in self.getLines():{
 //.   m1 = re.match(r'^\s*(\w+)\s*=\s*(\S+)\s*,(\s*/*.*)', line)
 //.   m2 = re.match(r'^\s*(\w+)\s*,(\s*/*.*)', line)
-//.   if (m1):{
+//.   if (m1 and self.initObjVars):{
 //.    v = m1.group(1) ## variable name
 //.    d = m1.group(2) ## default value
 //.    c = m1.group(3) ## line comments
@@ -83,7 +94,7 @@
 this.@v@ = (@v@ === undefined) ? @d@ : @v@
 //.    -self.parent._prebody
 //.   }
-//.   elif (m2):{
+//.   elif (m2 and self.initObjVars):{
 //.    v = m2.group(1) ## variable name
 //.    c = m2.group(2) ## line comments
 //.    self.buf += v + ',' + c + fast.newline
@@ -206,7 +217,7 @@ this.@v@ = @v@
 //.banana = SectionJs('banana')
 //.this = +banana('banana.js')
 class banana {
-    //.+this.c
+    //.+this.c(1)
     ({
      aa,
      bb=22,
@@ -225,6 +236,13 @@ class banana {
         //.this.apple > 'body1'
     }
     //.-this.apple
+
+    //.+this.pear  ## test no args
+    ({
+    }) {
+        // body
+    }
+    //.-this.pear
 }
 //.-this
 
