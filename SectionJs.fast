@@ -3,6 +3,15 @@
 //Extend Section for Javascript
 //-----------------------------
 
+//.class Sec(Section):{
+//. def create(self, x='', parent=None):{
+//.  return SectionJs(x, parent)
+//. }
+//. def __init__(self, x='', parent=None):{
+//.  super(Sec, self).__init__(x, parent)
+//. }
+//.}
+
 //.class SectionJs(Section):{
 //. def create(self, x='', parent=None):{
 //.  return SectionJsMethod(x, parent)
@@ -211,11 +220,15 @@ this.@v@ = @v@
 //. }
 //.}
 
+//.sec = Sec('sec') # global top section object for creating SectionJs objects
+
 //.-fast
 
 // TESTING //
-//.banana = SectionJs('banana')
-//.this = +banana('banana.js')
+//.#banana = SectionJs('banana')
+//.banana = sec.banana('banana.js')
+//.#this = +banana('banana.js')
+//.this = +banana
 class banana {
     //.+this.c(1)
     ({
