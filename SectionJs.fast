@@ -224,6 +224,7 @@ this.@v@ = @v@
 
 //.-fast
 
+//.if (0):{
 // TESTING //
 //.#banana = SectionJs('banana')
 //.banana = sec.banana('banana.js')
@@ -258,8 +259,9 @@ class banana {
     //.-this.pear
 }
 //.-this
+//.}
 
-//.if (1):{
+//.if (0):{
 //.+banana.apple.args
 a=3, // a comments
 b=5, // b comments
@@ -274,4 +276,4 @@ return (a+b)
 @banana.apple.text@
 ---
 //.}
-//.fast.writeFiles()
+//.#fast.writeFiles()
