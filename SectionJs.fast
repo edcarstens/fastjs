@@ -54,16 +54,16 @@
 //.    m1 = re.match(r'^(.*)\((.*)', linem) ## (
 //.    m2 = re.match(r'^.*\)', linem) ## )
 //.    if (noOpenParen and m1):{
-//.     buf += leadSpace + m1.group(1) + 'constructor(' + m1.group(2) + fast.newline
+//.     buf += leadSpace + 'constructor(' + m1.group(2) + fast.newline
 //.     buf += "//.+fast['" + self.section + "']._args" + fast.newline
 //.     noOpenParen = False
 //.    }
 //.    elif (noCloseParen and m2):{
 //.     buf += "//.fast['" + self.section + "'].args > ''" + fast.newline
 //.     buf += "//.-fast['" + self.section + "']._args" + fast.newline
-//.     buf += leadSpace + "    //.fast['" + self.section + "']._args.chomp > ''" + fast.newline
+//.     buf += leadSpace + "//.fast['" + self.section + "']._args.chomp > ''" + fast.newline
 //.     buf += leadSpace + linem + fast.newline
-//.     buf += leadSpace + "    //.fast['" + self.section + "']._prebody > ''" + fast.newline
+//.     buf += leadSpace + "//.fast['" + self.section + "']._prebody > ''" + fast.newline
 //.     noCloseParen = False
 //.    }
 //.    else:{
@@ -157,7 +157,7 @@ this.@v@ = @v@
 //.     linem = async + gen + m1.group(3)
 //.    }
 //.### method( ###
-//.    m1 = re.match(r'^(.*)\((.*)', linem) ## (
+//.    m1 = re.match(r'^\s*(.*)\((.*)', linem) ## (
 //.    m2 = re.match(r'^.*\)', linem) ## )
 //.    if (noOpenParen and m1):{
 //.     buf += leadSpace + m1.group(1) + self.section.split()[-1] + '(' + m1.group(2) + fast.newline
