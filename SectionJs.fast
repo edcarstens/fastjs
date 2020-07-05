@@ -3,12 +3,12 @@
 //Extend Section for Javascript
 //-----------------------------
 
-//.class Sec(Section):{
+//.class SecJs(Section):{
 //. def create(self, x='', parent=None):{
 //.  return SectionJs(x, parent)
 //. }
 //. def __init__(self, x='', parent=None):{
-//.  super(Sec, self).__init__(x, parent)
+//.  super(SecJs, self).__init__(x, parent)
 //. }
 //.}
 
@@ -220,7 +220,36 @@ this.@v@ = @v@
 //. }
 //.}
 
-//.sec = Sec('sec') # global top section object for creating SectionJs objects
+//.class caseClass(object):{
+//. def __init__(self, parent, section):{
+//.  self.parent = parent
+//.  self.section = section
+//.  self.item = None
+//. }
+//. def __call__(self, item=None):{
+//.  self.item = item
+//.  return self
+//. }
+//. def __pos__(self):{
+//.  +getattr(self.parent, self.section)
+//.  if (self.item == None):{
+default:
+//.  }
+//.  else:{
+case "@self.item@":
+//.  }
+//.  fast >> 2
+//. }
+//. def __neg__(self):{
+//.  if (self.item != None):{
+break
+//.  }
+//.  fast << 2
+//. -getattr(self.parent, self.section)
+//. }
+//.}
+
+//.secjs = SecJs('secjs') # global top section object for creating SectionJs objects
 
 //.-fast
 
