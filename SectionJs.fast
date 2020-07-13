@@ -20,7 +20,7 @@
 //.  super(SectionJs, self).__init__(x, parent)
 //.  self.constructor = SectionJsConstructor(self.section + ' constructor', self)
 //.  self.c = self.constructor  ## aliased for less typing
-//.  self.body = SectionJs('body', self)
+//.  self.body = Section('body', self)
 //. }
 //.}
 
