@@ -20,7 +20,7 @@
 //.  super(SectionJs, self).__init__(x, parent)
 //.  self.constructor = SectionJsConstructor(self.section + ' constructor', self)
 //.  self.c = self.constructor  ## aliased for less typing
-//.  self.body = Section('body', self)
+//.#  self.body = Section(self.section + ' body', self)
 //. }
 //.}
 
@@ -79,6 +79,7 @@
 //. } # def process
 //. def __neg__(self):{
 //.  super(SectionJsConstructor, self).__neg__() > ''
+//.  return self
 //. }
 //.}
 
@@ -101,10 +102,12 @@
 //.    v = m1.group(1) ## variable name
 //.    d = m1.group(2) ## default value
 //.    c = m1.group(3) ## line comments
-//.    self.buf += v + ',' + c + fast.newline
+//.#    self.buf += v + ',' + c + fast.newline
+//.    self.buf += v + '=' + d + ',' + c + fast.newline
 //.    self.argDefaults[v] = d
 //.    +self.parent._prebody
-this.@v@ = (@v@ === undefined) ? @d@ : @v@
+//.#this.@v@ = (@v@ === undefined) ? @d@ : @v@
+this.@v@ = @v@
 //.    -self.parent._prebody
 //.   }
 //.   elif (m2 and self.initObjVars):{
@@ -131,8 +134,16 @@ this.@v@ = @v@
 //.  super(SectionJsMethod, self).__init__(x, parent)
 //.  self._args = SectionJsMethodArgs(self.section + ' _args', self)
 //.  self.args = SectionJsMethodArgs(self.section + ' args', self)
+//.  self.enableMethod = False
+//. }
+//. def __call__(self, *args):{
+//.  self.enableMethod = True
+//.  return self
 //. }
 //. def process(self):{
+//.  if (not self.enableMethod):{
+//.   return
+//.  }
 //.  buf = ''
 //.  noOpenParen = True
 //.  noCloseParen = True
@@ -163,23 +174,27 @@ this.@v@ = @v@
 //.     }
 //.     linem = async + gen + m1.group(3)
 //.    }
-//.### method( ###
+//.### method( ###   TODO: allow more syntax forms for (arg1,arg2)
 //.    m1 = re.match(r'^(.*)\((.*)', linem) ## (
 //.    m2 = re.match(r'^.*\)', linem) ## )
+//.    newParen = False
 //.    if (noOpenParen and m1):{
 //.     buf += m1.group(1) + self.section.split()[-1] + '(' + m1.group(2) + fast.newline
 //.     buf += "//.+fast['" + self.section + "']._args" + fast.newline
 //.     noOpenParen = False
+//.     newParen = True
 //.    }
-//.    elif (noCloseParen and m2):{
+//.    if (noCloseParen and m2):{
 //.     buf += "//.fast['" + self.section + "'].args > ''" + fast.newline
 //.     buf += "//.-fast['" + self.section + "']._args" + fast.newline
 //.     buf += "    //.fast['" + self.section + "']._args.chomp > ''" + fast.newline
 //.     buf += linem + fast.newline
 //.     buf += "    //.fast['" + self.section + "']._prebody > ''" + fast.newline
 //.     noCloseParen = False
+//.     newParen = True
 //.    }
-//.    else:{
+//.#    else:{
+//.    if (not newParen):{
 //.     buf += leadSpace + linem + fast.newline
 //.    }
 //.   } # else
@@ -187,7 +202,11 @@ this.@v@ = @v@
 //.  self.setText(buf)
 //. } # def process
 //. def __neg__(self):{
-//.  super(SectionJsMethod, self).__neg__() > ''
+//.  super(SectionJsMethod, self).__neg__()
+//.  if (self.enableMethod):{
+//.   self > ''
+//.  }
+//.  return self
 //. }
 //.}
 
@@ -246,13 +265,15 @@ default:
 case "@self.item@":
 //.  }
 //.  fast >> 2
+//.  return self
 //. }
 //. def __neg__(self):{
 //.  if (self.item != None):{
 break
 //.  }
 //.  fast << 2
-//. -getattr(self.parent, self.section)
+//.  -getattr(self.parent, self.section)
+//.  return self
 //. }
 //.}
 
