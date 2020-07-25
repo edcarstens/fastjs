@@ -72,7 +72,7 @@ call
 
 //.def initClassVars():{
 //. for name in fast.getLines('methods'):{
-@name@Method = 'js__@name@__'
+@name@Method = 'ov_@name@'
 //. }
 //.}
 //.def method1(name):{
