@@ -106,7 +106,7 @@
 //.    self.buf += v + '=' + d + ',' + c + fast.newline
 //.    self.argDefaults[v] = d
 //.    +self.parent._prebody
-//.#this.@v@ = (@v@ === undefined) ? @d@ : @v@
+//.## this.@v@ = (@v@ === undefined) ? @d@ : @v@
 this.@v@ = @v@
 //.    -self.parent._prebody
 //.   }
@@ -224,11 +224,12 @@ this.@v@ = @v@
 //.    v = m1.group(1) ## variable name
 //.    d = m1.group(2) ## default value
 //.    c = m1.group(3) ## line comments
-//.    self.buf += v + ',' + c + fast.newline
+//.#    self.buf += v + ',' + c + fast.newline
+//.    self.buf += v + '=' + d + ',' + c + fast.newline
 //.    self.argDefaults[v] = d
-//.    +self.parent._prebody
-@v@ = (@v@ === undefined) ? @d@ : @v@
-//.    -self.parent._prebody
+//.#    +self.parent._prebody
+//.## @v@ = (@v@ === undefined) ? @d@ : @v@
+//.#    -self.parent._prebody
 //.   }
 //.   elif (m2):{
 //.    v = m2.group(1) ## variable name
