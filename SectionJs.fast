@@ -260,17 +260,18 @@ this.@v@ = @v@
 //. def __pos__(self):{
 //.  +getattr(self.parent, self.section)
 //.  if (self.item == None):{
-default:
+default: {
 //.  }
 //.  else:{
-case "@self.item@":
+case "@self.item@": {
 //.  }
 //.  fast >> 2
 //.  return self
 //. }
 //. def __neg__(self):{
 //.  if (self.item != None):{
-break
+  break
+}
 //.  }
 //.  fast << 2
 //.  -getattr(self.parent, self.section)
