@@ -164,15 +164,15 @@ this.@v@ = @v@
 //.### async or * ###
 //.    m1 = re.match(r'^([as]?)([\*g]?)(\s*\(.*)', linem)
 //.    if (m1):{
-//.     async = ''
+//.     _async = ''
 //.     gen = ''
 //.     if (m1.group(1) == 'a'):{
-//.      async = 'async '
+//.      _async = 'async '
 //.     }
 //.     if (m1.group(2)):{
 //.      gen = '*'
 //.     }
-//.     linem = async + gen + m1.group(3)
+//.     linem = _async + gen + m1.group(3)
 //.    }
 //.### method( ###   TODO: allow more syntax forms for (arg1,arg2)
 //.    m1 = re.match(r'^(.*)\((.*)', linem) ## (
